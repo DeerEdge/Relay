@@ -107,6 +107,7 @@ WindowManager:
 
             MDBottomNavigationItem:
                 name: 'screen_3'
+<<<<<<< Updated upstream
                 text: "Profile"
 
 <CallingWindow>:
@@ -121,3 +122,27 @@ WindowManager:
                 app.end_call()
                 root.manager.transition.direction = "down"
         MDLabel:
+=======
+                text: "Settings"
+                MDRectangleFlatButton:
+                    text: "Profile"
+                    theme_text_color: "Custom"
+                    text_color: "red"
+                    line_color: "red"
+                    pos_hint: {"center_x": .5, "center_y": .8}
+                    size_hint: 0.15, 0.10
+                MDRectangleFlatButton:
+                    text: "Language"
+                    theme_text_color: "Custom"
+                    text_color: "red"
+                    line_color: "red"
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    size_hint: 0.15, 0.10
+                MDRectangleFlatButton:
+                    text: "About"
+                    theme_text_color: "Custom"
+                    text_color: "red"
+                    line_color: "red"
+                    pos_hint: {"center_x": .5, "center_y": .2}
+                    size_hint: 0.15, 0.10
+>>>>>>> Stashed changes

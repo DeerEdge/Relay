@@ -28,7 +28,6 @@ class CallingWindow(Screen):
 class WindowManager(ScreenManager):
     pass
 
-
 class MainApp(MDApp):
 
     def build(self):
