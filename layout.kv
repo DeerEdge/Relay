@@ -1,0 +1,66 @@
+MDBoxLayout:
+    orientation: "vertical"
+
+    MDTopAppBar:
+        title: "Application"
+
+    MDBottomNavigation:
+        MDBottomNavigationItem:
+            name: 'screen_1'
+            text: "Home"
+            MDLabel:
+                text: "Nav Page: Home"
+                halign: "center"
+
+
+        MDBottomNavigationItem:
+            name: 'screen_2'
+            text: "Dial"
+            MDBoxLayout:
+                orientation: "vertical"
+                pos_hint: {"center_y": 0.55}
+                size_hint: 1, 0.75
+
+                MDLabel:
+                    text: "Enter Number"
+                    halign: "center"
+                    size_hint: 1, 0.2
+                AnchorLayout:
+                    MDGridLayout:
+                        cols: 3
+                        spacing: 50
+                        size_hint: None, None
+                        size: self.minimum_size
+                        MDRoundFlatButton:
+                            text: "1"
+                        MDRoundFlatButton:
+                            text: "2"
+                        MDRoundFlatButton:
+                            text: "3"
+                        MDRoundFlatButton:
+                            text: "4"
+                        MDRoundFlatButton:
+                            text: "5"
+                        MDRoundFlatButton:
+                            text: "6"
+                        MDRoundFlatButton:
+                            text: "7"
+                        MDRoundFlatButton:
+                            text: "8"
+                        MDRoundFlatButton:
+                            text: "9"
+                        MDRoundFlatButton:
+                            text: "*"
+                        MDRoundFlatButton:
+                            text: "0"
+                        MDRoundFlatButton:
+                            text: "#"
+                MDRoundFlatButton:
+                    text: "  Call  "
+                    pos_hint: {"center_x": .5}
+
+
+        MDBottomNavigationItem:
+            name: 'screen_3'
+            text: "Profile"
+
