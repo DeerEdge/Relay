@@ -22,6 +22,9 @@ class MainWindow(Screen):
             if widget.__self__ == instance:
                 return id
 
+class CallingWindow(Screen):
+    pass
+
 class WindowManager(ScreenManager):
     pass
 
@@ -29,10 +32,17 @@ class WindowManager(ScreenManager):
 class MainApp(MDApp):
 
     def build(self):
+        self.theme_cls.primary_palette = 'DeepPurple'
         self.root_widget = Builder.load_file('layout.kv')
         return self.root_widget
 
-    def login(self, dt):
+    def login(self):
+        self.root_widget.current = 'main'
+
+    def start_call(self):
+        self.root_widget.current = 'call'
+
+    def end_call(self):
         self.root_widget.current = 'main'
 
 MainApp().run()

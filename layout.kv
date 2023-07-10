@@ -1,6 +1,7 @@
 WindowManager:
     LoginWindow:
     MainWindow:
+    CallingWindow:
 
 <LoginWindow>:
     name: "login"
@@ -13,7 +14,7 @@ WindowManager:
             text: "Login"
             pos_hint: {"center_x": .5, "center_y": 1}
             on_release:
-                app.root.current = "main"
+                app.login()
                 root.manager.transition.direction = "left"
         MDLabel:
 
@@ -100,7 +101,23 @@ WindowManager:
                     MDRoundFlatButton:
                         text: "  Call  "
                         pos_hint: {"center_x": .5}
+                        on_press:
+                            app.start_call()
+                            root.manager.transition.direction = "up"
 
             MDBottomNavigationItem:
                 name: 'screen_3'
                 text: "Profile"
+
+<CallingWindow>:
+    name: "call"
+    MDBoxLayout:
+        orientation: "vertical"
+        MDLabel:
+        MDRoundFlatButton:
+            text: "End Call"
+            pos_hint: {"center_x": .5, "center_y": 1}
+            on_press:
+                app.end_call()
+                root.manager.transition.direction = "down"
+        MDLabel:
