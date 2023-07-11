@@ -36,7 +36,7 @@ class AddNewForm(Widget):
 
     def submit_input(self):
         self.input = self.text_input.text
-        post = requests.post('http://127.0.0.1:8000/create/', json={'name': self.input})
+        post = requests.post('http://127.0.0.1:8000/add/', json={'name': self.input})
 
         self.input = ''
 class AddScreen(Screen):
