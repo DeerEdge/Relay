@@ -18,6 +18,7 @@ WindowManager:
                 root.manager.transition.direction = "left"
         MDLabel:
 
+
 <MainWindow>:
     name: "main"
     MDBoxLayout:
@@ -107,22 +108,6 @@ WindowManager:
 
             MDBottomNavigationItem:
                 name: 'screen_3'
-<<<<<<< Updated upstream
-                text: "Profile"
-
-<CallingWindow>:
-    name: "call"
-    MDBoxLayout:
-        orientation: "vertical"
-        MDLabel:
-        MDRoundFlatButton:
-            text: "End Call"
-            pos_hint: {"center_x": .5, "center_y": 1}
-            on_press:
-                app.end_call()
-                root.manager.transition.direction = "down"
-        MDLabel:
-=======
                 text: "Settings"
                 MDRectangleFlatButton:
                     text: "Profile"
@@ -145,4 +130,16 @@ WindowManager:
                     line_color: "red"
                     pos_hint: {"center_x": .5, "center_y": .2}
                     size_hint: 0.15, 0.10
->>>>>>> Stashed changes
+
+<CallingWindow>:
+    name: "call"
+    MDBoxLayout:
+        orientation: "vertical"
+        MDLabel:
+        MDRoundFlatButton:
+            text: "End Call"
+            pos_hint: {"center_x": .5, "center_y": 1}
+            on_press:
+                app.end_call()
+                root.manager.transition.direction = "down"
+        MDLabel:
