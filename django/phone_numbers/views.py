@@ -3,6 +3,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+from rest_framework import generics
 from .serializers import *
 from .models import *
 
@@ -20,3 +21,7 @@ def add_phone_number(request):
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+class PhoneNumberDetail(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = PhoneNumbersSerializer
+    queryset = PhoneNumber.objects.all()

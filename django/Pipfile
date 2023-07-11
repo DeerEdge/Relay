@@ -5,6 +5,9 @@ name = "pypi"
 
 [packages]
 kivy = "*"
+django = "*"
+djangorestframework = "*"
+kivymd = "*"
 
 [dev-packages]
 

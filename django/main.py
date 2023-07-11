@@ -36,7 +36,7 @@ class AddNewForm(Widget):
 
     def submit_input(self):
         self.input = self.text_input.text
-        post = requests.post('http://127.0.0.1:8000/add/', json={'name': self.input})
+        post = requests.post('http://127.0.0.1:8000/add/', json={'phone_number': self.input})
 
         self.input = ''
 class AddScreen(Screen):
@@ -52,8 +52,8 @@ class AddScreen(Screen):
 class ScreenManagement(ScreenManager):
     pass
 #app class
-class TodoApp(App):
+class RelayApp(App):
     pass
 
 if __name__ == '__main__':
-    TodoApp().run()
+    RelayApp().run()
