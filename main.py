@@ -31,7 +31,14 @@ class WindowManager(ScreenManager):
 class MainApp(MDApp):
 
     def build(self):
-        self.theme_cls.primary_palette = 'DeepPurple'
+        self.theme_cls.primary_palette = "Purple"
+        self.theme_cls.primary_hue = "500"
+
+        self.theme_cls.accent_palette = "Amber"
+        self.theme_cls.accent_hue = "500"
+
+        self.theme_cls.theme_style = "Light"
+
         self.root_widget = Builder.load_file('layout.kv')
         return self.root_widget
 
