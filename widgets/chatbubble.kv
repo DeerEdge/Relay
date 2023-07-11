@@ -13,7 +13,7 @@
         width: msg_content.width + wid1.width + wid2.width
         size_hint: None, None
         pos_hint: {'right': 1} if chtbld.sender == 'you' else {'left': 1}
-        radius: [10, 10, (1, -5), 10] if self.pos_hint == {'right': 1} else [10, 10, 10, (1, -5)]
+        # radius: [10, 10, (1, -5), 10] if self.pos_hint == {'right': 1} else [10, 10, 10, (1, -5)]
         md_bg_color: app.theme_cls.bg_darkest if app.theme_cls.theme_style == 'Light' else app.theme_cls.bg_dark
         Spacer:
             id: wid1

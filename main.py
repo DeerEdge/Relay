@@ -30,6 +30,7 @@ Builder.load_file('widgets/chatbubble.kv')
 Builder.load_file('windows/calling_window.kv')
 Builder.load_file('windows/login_window.kv')
 Builder.load_file('windows/main_window.kv')
+Builder.load_file('windows/chat_window.kv')
 
 class ChatScreen(Screen):
     text = StringProperty()
@@ -82,8 +83,13 @@ class CallingWindow(Screen):
 class WindowManager(ScreenManager):
     pass
 
-class MainApp(MDApp):
+class GroupScreen(Screen):
+    pass
 
+class Message(MDLabel):
+    pass
+
+class MainApp(MDApp):
     def build(self):
         self.theme_cls.primary_palette = "Purple"
         self.theme_cls.primary_hue = "500"
@@ -109,6 +115,15 @@ class MainApp(MDApp):
 
         return self.wm
 
+    def create_chat(self, profile):
+        '''Get all messages and create a chat screen'''
+        self.chat_screen = ChatScreen()
+        self.msg_builder(profile, self.chat_screen)
+        self.chat_screen.text = profile['name']
+        self.chat_screen.image = profile['image']
+        self.chat_screen.active = profile['active']
+        self.wm.switch_to(self.chat_screen)
+
     def chatlist_builder(self):
         for messages in profiles:
             for message in messages['msg']:
@@ -123,6 +138,31 @@ class MainApp(MDApp):
                 self.chatitem.isRead = isRead
                 self.chatitem.sender = sender
             self.wm.screens[1].ids['chatlist'].add_widget(self.chatitem)
+
+    def msg_builder(self, profile, screen):
+        for prof in profile['msg']:
+            for messages in prof.split("~"):
+                if messages != "":
+                    message, time, isRead, sender = messages.split(";")
+                    self.chatmsg = ChatBubble()
+                    self.chatmsg.msg = message
+                    self.chatmsg.time = time
+                    self.chatmsg.isRead = isRead
+                    self.chatmsg.sender = sender
+                    screen.ids['msglist'].add_widget(self.chatmsg)
+                else:
+                    print("No message")
+
+                print(self.chatmsg.isRead)
+
+    def grouplist_builder(self):
+        for group in demo.group.groups:
+            self.groupitem = GroupListItem()
+            self.groupitem.group = group
+            self.groupitem.group_name = group['name']
+            self.groupitem.group_avatar = group['image']
+            self.groupitem.friend_mssg, self.groupitem.timestamp, self.groupitem.isRead = group['msg'].split(';')
+            self.wm.screens[1].ids['grouplist'].add_widget(self.groupitem)
 
     def login(self):
         self.wm.current = 'main'
