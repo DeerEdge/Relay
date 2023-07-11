@@ -32,22 +32,15 @@ Builder.load_file('windows/login_window.kv')
 Builder.load_file('windows/main_window.kv')
 
 class ChatScreen(Screen):
-    '''A screen that display messages with a user.'''
-
     text = StringProperty()
     image = ObjectProperty()
     active = BooleanProperty(defaultvalue=False)
 
 class StoryWithImage(MDBoxLayout):
-    '''A horizontal layout with an image(profile picture)
-        and a text(username) - The Story.'''
-
     text = StringProperty()
     source = StringProperty()
 
 class ChatListItem(MDCard):
-    '''A clickable chat item for the chat timeline.'''
-
     isRead = OptionProperty(None, options=['delivered', 'read', 'new', 'waiting'])
     friend_name = StringProperty()
     mssg = StringProperty()
@@ -56,8 +49,6 @@ class ChatListItem(MDCard):
     profile = DictProperty()
 
 class GroupListItem(MDCard):
-    '''A clickable chat item for the group chat timeline.'''
-
     isRead = OptionProperty(None, options=['delivered', 'read', 'new', 'waiting'])
     group_name = StringProperty()
     group_avatar = StringProperty()
@@ -65,8 +56,6 @@ class GroupListItem(MDCard):
     timestamp = StringProperty()
 
 class ChatBubble(MDBoxLayout):
-    '''A chat bubble for the chat screen messages.'''
-
     profile = DictProperty()
     msg = StringProperty()
     time = StringProperty()
@@ -115,10 +104,25 @@ class MainApp(MDApp):
             self.wm.add_widget(screen)
 
         # self.story_builder()
-        # self.chatlist_builder()
+        self.chatlist_builder()
         # self.grouplist_builder()
 
         return self.wm
+
+    def chatlist_builder(self):
+        for messages in profiles:
+            for message in messages['msg']:
+                self.chatitem = ChatListItem()
+                self.chatitem.profile = messages
+                self.chatitem.friend_name = messages['name']
+                self.chatitem.friend_avatar = messages['image']
+
+                lastmessage, time, isRead, sender = message.split(';')
+                self.chatitem.mssg = lastmessage
+                self.chatitem.timestamp = time
+                self.chatitem.isRead = isRead
+                self.chatitem.sender = sender
+            self.wm.screens[1].ids['chatlist'].add_widget(self.chatitem)
 
     def login(self):
         self.wm.current = 'main'

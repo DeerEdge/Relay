@@ -83,7 +83,49 @@ rihanna = {
     "msg": chats["rihanna"],
     }
 
-profiles = [anita, jooyce, weeknd, jordan, breezy, wizkid, davido, zendaya, rihanna]
+rihanna1 = {
+    "name": "Rihanna",
+    "image": "assets/images/rihanna.png",
+    "active": True,
+    "msg": chats["rihanna"],
+    }
+
+rihanna2 = {
+    "name": "Rihanna",
+    "image": "assets/images/rihanna.png",
+    "active": True,
+    "msg": chats["rihanna"],
+    }
+
+rihanna3 = {
+    "name": "Rihanna",
+    "image": "assets/images/rihanna.png",
+    "active": True,
+    "msg": chats["rihanna"],
+    }
+
+rihanna4 = {
+    "name": "Rihanna",
+    "image": "assets/images/rihanna.png",
+    "active": True,
+    "msg": chats["rihanna"],
+    }
+
+rihanna5 = {
+    "name": "Rihanna",
+    "image": "assets/images/rihanna.png",
+    "active": True,
+    "msg": chats["rihanna"],
+    }
+
+rihanna6 = {
+    "name": "Rihanna",
+    "image": "assets/images/rihanna.png",
+    "active": True,
+    "msg": chats["rihanna"],
+    }
+
+profiles = [anita, jooyce, weeknd, jordan, breezy, wizkid, davido, zendaya, rihanna, rihanna1, rihanna2, rihanna3, rihanna4, rihanna5, rihanna6]
 
 print(profiles[0]["msg"])
 # print(anita.items())
