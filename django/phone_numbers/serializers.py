@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import *
 
-class TaskSerializer(serializers.ModelSerializer):
+class PhoneNumbersSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Task
+        model = PhoneNumber
         fields = '__all__'

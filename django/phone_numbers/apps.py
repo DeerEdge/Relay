@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class TasksConfig(AppConfig):
+class PhoneNumbersConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'phone_numbers'

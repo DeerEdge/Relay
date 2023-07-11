@@ -24,7 +24,7 @@ class MyRecycleView(RecycleView):
 
         list_data = []
         for item in store:
-            list_data.append({'text': item['name']})
+            list_data.append({'text': item['phone_number']})
         self.data = list_data
 #screens
 class HomeScreen(Screen):
