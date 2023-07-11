@@ -6,3 +6,6 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+
+/django/phone_numbers/__pycache__/
+/django/Relay/__pycache__/
