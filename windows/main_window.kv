@@ -1,49 +1,3 @@
-<LoginWindow>:
-    name: "login"
-    MDBoxLayout:
-        orientation : "vertical"
-        MDTopAppBar:
-            title: "Application"
-            pos_hint: {"center_y": 1}
-        MDLabel:
-    MDLabel:
-        text: "Log in"
-        halign: "center"
-        pos_hint: {"center_y":.73}
-        font_style: "Subtitle2"
-    MDTextField:
-        hint_text: "Username or Email"
-        pos_hint: {"center_x": 0.5, "center_y": 0.65}
-        size_hint: .75,0.085
-        # mode: "rectangle"
-    MDTextField:
-        hint_text: "Password"
-        pos_hint: {"center_x":0.5, "center_y":0.57}
-        size_hint: .75,0.085
-        password: True
-        # mode: "rectangle"
-    MDRaisedButton:
-        text: "Login"
-        pos_hint: {"center_x": 0.5, "center_y":0.48}
-        size_hint: .7,0.05
-        on_release:
-            app.login()
-            root.manager.transition.direction = "left"
-    MDTextButton:
-        text: "Forgot password?"
-        pos_hint: {"center_x":0.5, "center_y":0.4}
-        on_release: app.screen_manager.change_screen("forgot")
-    MDTextButton:
-        text: f"[color=#000000]Don't have an account?[/color] Sign up"
-        markup: True
-        pos_hint: {"center_x":0.5, "center_y":0.33}
-        on_release: app.screen_manager.change_screen("signup")
-    MDLabel:
-        text: f"[font=Icons] {md_icons['copyright']}[/font][font=Roboto]{'Relay'} 2023[/font]"
-        markup: True
-        halign: "center"
-        pos_hint: {"center_y":0.05}
-
 <MainWindow>:
     name: "main"
     MDBoxLayout:
@@ -184,18 +138,3 @@
                     line_color: "red"
                     pos_hint: {"center_x": .5, "center_y": .2}
                     size_hint: 0.15, 0.10
-
-
-
-<CallingWindow>:
-    name: "call"
-    MDBoxLayout:
-        orientation: "vertical"
-        MDLabel:
-        MDRoundFlatButton:
-            text: "End Call"
-            pos_hint: {"center_x": .5, "center_y": 1}
-            on_press:
-                app.end_call()
-                root.manager.transition.direction = "down"
-        MDLabel:
