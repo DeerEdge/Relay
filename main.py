@@ -27,7 +27,9 @@ Builder.load_file('widgets/call_list_item.kv')
 Builder.load_file('widgets/bottom_navigator.kv')
 Builder.load_file('widgets/text_field.kv')
 Builder.load_file('widgets/chatbubble.kv')
-Builder.load_file('layout.kv')
+Builder.load_file('windows/calling_window.kv')
+Builder.load_file('windows/login_window.kv')
+Builder.load_file('windows/main_window.kv')
 
 class ChatScreen(Screen):
     '''A screen that display messages with a user.'''
