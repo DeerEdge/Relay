@@ -24,7 +24,11 @@ class MyRecycleView(RecycleView):
 
         list_data = []
         for item in store:
-            list_data.append({'text': item['phone_number']})
+            # list_data.append({item['phone_number'], item['name']})
+
+            # 'text' is included because kv uses to read want to put as text (?)
+            append_item = {'text': (item['phone_number'] + item['name'] + str(item['date_joined']))}
+            list_data.append(append_item)
         self.data = list_data
 #screens
 class HomeScreen(Screen):
@@ -44,7 +48,7 @@ class AddScreen(Screen):
         super(AddScreen, self).__init__(**kwargs)
         self.box = BoxLayout()
         self.box.orientation = "vertical"
-        self.box.add_widget(Label(text="Add To List...", color="blue",pos_hint={"top": 1}))
+        self.box.add_widget(Label(text="Add User...", color="blue",pos_hint={"top": 1}))
         self.addNewForm = AddNewForm()
         self.box.add_widget(self.addNewForm)
         self.add_widget(self.box)
