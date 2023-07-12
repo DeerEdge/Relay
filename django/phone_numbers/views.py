@@ -22,6 +22,16 @@ def add_phone_number(request):
         serializer.save()
     return Response(serializer.data, status=status.HTTP_200_OK)
 
+class PhoneNumberList(generics.ListCreateAPIView):
+    serializer_class = PhoneNumbersSerializer
+
+    def get_queryset(self):
+        queryset = PhoneNumber.objects.all()
+        phone_number = self.request.query_params.get('phone_number')
+        if phone_number is not None:
+            queryset = queryset.filter(phone_number=phone_number)
+        return queryset
+
 class PhoneNumberDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PhoneNumbersSerializer
     queryset = PhoneNumber.objects.all()
