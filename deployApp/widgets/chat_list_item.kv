@@ -4,7 +4,7 @@
     elevation: 0
     size_hint_y: None
     padding: [10, 0, 10, 0]
-    spacing: dp(10)
+    spacing: 10
     height: chatAvatar.height + 10
     on_press: app.create_chat(root.profile)
     Avatar:
@@ -16,7 +16,7 @@
         # md_bg_color: 1, 0, 1, 1
         orientation: "vertical"
         padding: [0, 0, 0, 10]
-        spacing: dp(2)
+        spacing: 2
         Label:
             id: chatUsername
             text: root.friend_name
@@ -24,7 +24,7 @@
             size: self.texture_size
             size_hint_y: None
             size_hint_x: None
-            font_size: dp(15)
+            font_size: 15
             color: app.theme_cls.opposite_bg_normal
             bold: True
         MDLabel:
@@ -35,7 +35,7 @@
             size_hint_y: None
             # size_hint_x: None
             bold: True
-            font_size: dp(13)
+            font_size: 13
             color: [.5, .5, .5, 1] if root.isRead != 'new' else app.theme_cls.primary_color
             shorten: True
             markup: True
@@ -47,7 +47,7 @@
         width: time.width
         size_hint_x: None
         pos_hint: {'center_y': .5}
-        spacing: dp(2)
+        spacing: 2
         padding: [0, 15, 0, 5]
         Label:
             id: time
@@ -55,7 +55,7 @@
             size: self.texture_size
             size_hint_y: None
             size_hint_x: None
-            font_size: dp(12)
+            font_size: 9
             color: app.theme_cls.opposite_bg_normal
 
         MDIcon:
@@ -64,7 +64,7 @@
             theme_text_color: 'Custom'
             icon: icons[root.isRead] if root.isRead in icons.keys() else ''
             size_hint: None, None
-            font_size: dp(18)
-            size: dp(40), dp(40)
+            font_size: 12
+            size: 20, 20
             pos_hint: {"center_x": .5, 'center_y': .5}
             text_color: app.theme_cls.primary_color
