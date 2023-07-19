@@ -98,6 +98,7 @@ def main():
             now = datetime.utcnow()
             # Pull raw recorded audio from the queue.
             if not data_queue.empty():
+                live_set = ['']
                 phrase_complete = False
                 # If enough time has passed between recordings, consider the phrase complete.
                 # Clear the current working audio buffer to start over with the new data.
@@ -126,14 +127,18 @@ def main():
 
                 # If we detected a pause between recordings, add a new item to our transcripion.
                 # Otherwise edit the existing one.
+
                 if phrase_complete:
                     transcription.append(text)
+                    live_set.append(text)
                 else:
                     transcription[-1] = text
+                    live_set[-1] = text
+
 
                 # Clear the console to reprint the updated transcription.
                 os.system('cls' if os.name == 'nt' else 'clear')
-                for line in transcription:
+                for line in live_set:
                     print(line)
                 # Flush stdout.
                 print('', end='', flush=True)
