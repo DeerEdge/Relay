@@ -82,7 +82,7 @@ def main():
 
     # set style and size of font
     # that you want in the pdf
-    pdf.set_font("Arial", size=15)
+    pdf.set_font("Arial", size=12)
 
     with source:
         recorder.adjust_for_ambient_noise(source)
@@ -163,7 +163,7 @@ def main():
         print(line)
         # Output transcription into the PDF
         pdf.cell(200, 10, txt=line,
-                 ln=1, align='C')
+                 ln=1)
 
     # Create PDF File within REPO
     pdf.output("GFG.pdf")
