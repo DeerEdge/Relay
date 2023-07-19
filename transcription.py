@@ -1,3 +1,5 @@
+# Import Whisper using: pip install git+https://github.com/openai/whisper.git
+
 import argparse
 import io
 import os
