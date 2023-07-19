@@ -12,7 +12,7 @@ from queue import Queue
 from tempfile import NamedTemporaryFile
 from time import sleep
 from sys import platform
-
+from fpdf import FPDF
 
 def main():
     parser = argparse.ArgumentParser()
@@ -73,6 +73,16 @@ def main():
 
     temp_file = NamedTemporaryFile().name
     transcription = ['']
+
+    # PDF Creator
+    pdf = FPDF()
+
+    # Add a page
+    pdf.add_page()
+
+    # set style and size of font
+    # that you want in the pdf
+    pdf.set_font("Arial", size=15)
 
     with source:
         recorder.adjust_for_ambient_noise(source)
@@ -151,6 +161,12 @@ def main():
     print("\n\nTranscription:")
     for line in transcription:
         print(line)
+        # Output transcription into the PDF
+        pdf.cell(200, 10, txt=line,
+                 ln=1, align='C')
+
+    # Create PDF File within REPO
+    pdf.output("GFG.pdf")
 
 
 if __name__ == "__main__":
