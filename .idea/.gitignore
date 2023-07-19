@@ -7,5 +7,6 @@
 /dataSources/
 /dataSources.local.xml
 
-/django/phone_numbers/__pycache__/
-/django/Relay/__pycache__/
+**/__pycache__/
+__pycache__/
+__pycache__
