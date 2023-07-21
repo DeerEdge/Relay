@@ -4,18 +4,16 @@ import uuid  # for generating random user id values
 import twilio.jwt.access_token
 import twilio.jwt.access_token.grants
 import twilio.rest
-from dotenv import load_dotenv
 from flask import Flask, render_template, request
 
 # Load environment variables from a .env file
-load_dotenv()
 TWILIO_ACCOUNT_SID='AC00d7faaa97cf174ce15e0aeccf0ee4e4'
 TWILIO_API_KEY_SID='SK95ba75afc7c2523cff79c840c30140c7'
 TWILIO_API_KEY_SECRET='qvANLZGafSnr3uskS3WxtmOjrNrlkw1m'
 # Create a Twilio client
-account_sid = os.environ[TWILIO_ACCOUNT_SID]
-api_key = os.environ[TWILIO_API_KEY_SID]
-api_secret = os.environ[TWILIO_API_KEY_SECRET]
+account_sid = TWILIO_ACCOUNT_SID
+api_key = TWILIO_API_KEY_SID
+api_secret = TWILIO_API_KEY_SECRET
 twilio_client = twilio.rest.Client(api_key, api_secret, account_sid)
 
 # Create a Flask app
