@@ -116,6 +116,14 @@ class MainApp(MDApp):
             print("nice transc")
             for line in snippet_translate.get_transciption():
                 print(line)
+                scroll_view = self.wm.screens[2].ids.scroll_view
+                text_label = self.wm.screens[2].ids.text_label
+
+                new_text = "\n" + "<Me> " + line
+                # You can change this to your desired text.
+                updated_text = text_label.text + new_text
+                text_label.text = updated_text
+                scroll_view.scroll_y = 0
             snippet_translate.stop_thread.set()
             self.stopThreadHelper.set()
             self.createdThreads = False

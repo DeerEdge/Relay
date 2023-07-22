@@ -2,7 +2,6 @@
     name: "call"
     MDBoxLayout:
         orientation: "vertical"
-        size_hint: (1, 1)
         MDTopAppBar:
             title: "In Call..."
         MDScrollView:
@@ -10,37 +9,47 @@
             scroll_distance: 100
             bar_color: [0, 0, 255, 1]
             bar_width: 12
+            padding: dp(40), dp(10)
             id: scroll_view
             do_scroll_x: False
             do_scroll_y: True
 
             MDLabel:
                 id: text_label
+                padding: dp(40), dp(10)
                 text: "Call connected...chat history initiated"
                 theme_text_color: "Secondary"
                 size_hint_y: None
                 height: self.texture_size[1]
                 markup: True
                 padding: dp(30), dp(30)
-
         MDBoxLayout:
-            orientation: "horizontal"
+            orientation: "vertical"
             MDLabel:
-            MDRoundFlatButton:
-                text: "Record"
-                pos_hint: {"center_x": .5, "center_y": 1}
-                on_press:
-                    app.begin_record()
             MDLabel:
-            MDRoundFlatButton:
-                text: "Stop Recording"
-                pos_hint: {"center_x": .5, "center_y": 1}
+            MDLabel:
+            MDBoxLayout:
+                orientation: "horizontal"
+                MDLabel:
+                MDRoundFlatButton:
+                    text: "    Listen    "
+                    pos_hint: {"center_x": .5, "center_y": 1}
+                    on_press:
+                        app.begin_record()
+                MDLabel:
+                MDRoundFlatButton:
+                    text: "   Capture   "
+                    pos_hint: {"center_x": .5, "center_y": 1}
+                    on_press:
+                        app.end_record()
+                MDLabel:
+            MDRectangleFlatButton:
+                text_color: 1, 0, 0, 1
+                md_bg_color: 1, 0, 0, 0.1
+                text: "     End Call     "
+                pos_hint: {"center_x": .5, "center_y": 0.8}
                 on_press:
                     app.end_call()
+                    root.manager.transition.direction = "down"
             MDLabel:
-        MDRoundFlatButton:
-            text: "End Call"
-            pos_hint: {"center_x": .5, "center_y": 1}
-            on_press:
-                app.end_call()
-                root.manager.transition.direction = "down"
+            MDLabel:

@@ -36,11 +36,12 @@ def run():
     client_socket.send(username_header + username)
 
     # while True:
-    message = snippet_translate.get_recent_string()
-    print("Message" + message)
+    messagelst = snippet_translate.get_transciption()
+    print(messagelst)
+
 
     # If message is not empty - send it
-    if message:
+    for message in messagelst:
         # Encode message to bytes, prepare header and convert to bytes, like for username above, then send
         message = message.encode('utf-8')
         message_header = f"{len(message):<{HEADER_LENGTH}}".encode('utf-8')
