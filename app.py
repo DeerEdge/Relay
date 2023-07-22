@@ -65,6 +65,7 @@ class MainApp(MDApp):
         self.wm.current = 'main'
 
     def start_call(self):
+        self.flag = False
         self.wm.current = 'call'
         self.thread3 = threading.Thread(target=self.start_client)
         self.thread3.start()
@@ -74,12 +75,12 @@ class MainApp(MDApp):
     def check_for_message(self):
         while True:
             msg = str(receive_data_client.received_message)
-            if msg != "":
-                self.add_text_to_scrollview(msg)
+            if msg != "" and self.flag == False:
+                self.add_text_to_scrollview(msg, "none")
                 receive_data_client.received_message = ""
             time.sleep(1)
 
-    def add_text_to_scrollview(self, msg):
+    def add_text_to_scrollview(self, msg, flag):
         scroll_view = self.wm.screens[2].ids.scroll_view
         text_label = self.wm.screens[2].ids.text_label
 
@@ -128,6 +129,7 @@ class MainApp(MDApp):
             snippet_translate.stop_thread.set()
             self.stopThreadHelper.set()
             self.createdThreads = False
+            self.flag = True
             print("threading ended")
 
     def contact_official_link(self):
