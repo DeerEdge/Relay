@@ -6,6 +6,8 @@ from kivy.lang import Builder
 from kivymd.app import MDApp
 from kivy.core.window import Window
 from kivy.uix.screenmanager import ScreenManager, Screen
+
+import call_client
 import snippet_translate
 
 Window.size = (360, 640)
@@ -14,7 +16,13 @@ Builder.load_file('login_window.kv')
 Builder.load_file('calling_window.kv')
 Builder.load_file('main_window.kv')
 
+global transcription
+global old_string
+global recent_string
 global kill_exec
+
+recent_string = ""
+old_string = recent_string
 kill_exec = False
 
 class LoginWindow(Screen): pass
@@ -59,6 +67,7 @@ class MainApp(MDApp):
 
     def start_call(self):
         self.wm.current = 'call'
+        call_client.run()
 
     def activiate_whisper_translation(self):
         print("translate started")
@@ -69,7 +78,8 @@ class MainApp(MDApp):
         while True:
             if self.stopThreadHelper.is_set():
                 break
-            print('------------------------------')
+            if recent_string != old_string:
+                print(recent_string)
             time.sleep(5)
 
     def begin_record(self):
@@ -82,7 +92,7 @@ class MainApp(MDApp):
     def end_record(self):
         if self.createdThreads == True:
             snippet_translate.stop_thread.set()
-            self.stopThreadHelper.set()
+            # self.stopThreadHelper.set()
             self.createdThreads = False
             print("threading ended")
 

@@ -15,6 +15,8 @@ from tempfile import NamedTemporaryFile
 from time import sleep
 from sys import platform
 
+import app
+
 global stop_thread
 stop_thread = threading.Event()
 
@@ -137,11 +139,10 @@ def main():
                     transcription.append(text)
                 else:
                     transcription[-1] = text
-
+                app.recent_string = text
                 # Clear the console to reprint the updated transcription.
                 os.system('cls' if os.name == 'nt' else 'clear')
-                for line in transcription:
-                    print(line)
+                print("New transr: " + text)
                 # Flush stdout.
                 print('', end='', flush=True)
 
@@ -151,8 +152,10 @@ def main():
             break
 
     print("\n\nTranscription:")
+    app.transcription = transcription
     for line in transcription:
         print(line)
+
 
 if __name__ == "__main__":
     main()
