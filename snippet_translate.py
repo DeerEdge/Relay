@@ -15,9 +15,13 @@ from tempfile import NamedTemporaryFile
 from time import sleep
 from sys import platform
 
-import app
+import call_client
 
 global stop_thread
+global transcription
+global recent_string
+recent_string = ""
+transcription = ['']
 stop_thread = threading.Event()
 
 def main():
@@ -77,7 +81,6 @@ def main():
     phrase_timeout = args.phrase_timeout
 
     temp_file = NamedTemporaryFile().name
-    transcription = ['']
 
     with source:
         recorder.adjust_for_ambient_noise(source)
@@ -102,6 +105,7 @@ def main():
 
     while True:
         if stop_thread.is_set():
+            call_client.run()
             break
         try:
             now = datetime.utcnow()
@@ -132,17 +136,18 @@ def main():
                 # Read the transcription.
                 result = audio_model.transcribe(temp_file, fp16=torch.cuda.is_available())
                 text = result['text'].strip()
-
+                global recent_string
+                recent_string = text
                 # If we detected a pause between recordings, add a new item to our transcripion.
                 # Otherwise edit the existing one.
                 if phrase_complete:
                     transcription.append(text)
                 else:
                     transcription[-1] = text
-                app.recent_string = text
                 # Clear the console to reprint the updated transcription.
                 os.system('cls' if os.name == 'nt' else 'clear')
-                print("New transr: " + text)
+                for line in transcription:
+                    print(line)
                 # Flush stdout.
                 print('', end='', flush=True)
 
@@ -151,11 +156,11 @@ def main():
         except KeyboardInterrupt:
             break
 
-    print("\n\nTranscription:")
-    app.transcription = transcription
-    for line in transcription:
-        print(line)
+def get_transciption():
+    return transcription
 
+def get_recent_string():
+    return recent_string
 
 if __name__ == "__main__":
     main()

@@ -1,3 +1,4 @@
+import socket
 import threading
 import time
 from random import random
@@ -16,15 +17,9 @@ Builder.load_file('login_window.kv')
 Builder.load_file('calling_window.kv')
 Builder.load_file('main_window.kv')
 
-global transcription
-global old_string
-global recent_string
 global kill_exec
-
-recent_string = ""
-old_string = recent_string
 kill_exec = False
-
+recent_string = ""
 class LoginWindow(Screen): pass
 
 class MainWindow(Screen):
@@ -67,7 +62,46 @@ class MainApp(MDApp):
 
     def start_call(self):
         self.wm.current = 'call'
-        call_client.run()
+
+
+    def start_client(self):
+        HEADER_LENGTH = 10
+
+        # IP Address of the server
+        IP = "192.168.1.42"
+        PORT = 1234
+        my_username = "DV"
+        # my_username = input("Username: ")
+
+        # Create a socket
+        # socket.AF_INET - address family, IPv4, some otehr possible are AF_INET6, AF_BLUETOOTH, AF_UNIX
+        # socket.SOCK_STREAM - TCP, conection-based, socket.SOCK_DGRAM - UDP, connectionless, datagrams, socket.SOCK_RAW - raw IP packets
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+        # Connect to a given ip and port
+        client_socket.connect((IP, PORT))
+
+        # Set connection to non-blocking state, so .recv() call won;t block, just return some exception we'll handle
+        client_socket.setblocking(False)
+
+        # Prepare username and header and send them
+        # We need to encode username to bytes, then count number of bytes and prepare header of fixed size, that we encode to bytes as well
+        username = my_username.encode('utf-8')
+        username_header = f"{len(username):<{HEADER_LENGTH}}".encode('utf-8')
+        client_socket.send(username_header + username)
+
+        while True:
+            message = snippet_translate.get_recent_string()
+            print("Message" + message)
+
+            # If message is not empty - send it
+            if message:
+                # Encode message to bytes, prepare header and convert to bytes, like for username above, then send
+                message = message.encode('utf-8')
+                message_header = f"{len(message):<{HEADER_LENGTH}}".encode('utf-8')
+                client_socket.send(message_header + message)
+
+            time.sleep(0.25)
 
     def activiate_whisper_translation(self):
         print("translate started")
@@ -78,8 +112,7 @@ class MainApp(MDApp):
         while True:
             if self.stopThreadHelper.is_set():
                 break
-            if recent_string != old_string:
-                print(recent_string)
+            print("____")
             time.sleep(5)
 
     def begin_record(self):
@@ -91,13 +124,19 @@ class MainApp(MDApp):
 
     def end_record(self):
         if self.createdThreads == True:
+            print("nice transc")
+            for line in snippet_translate.get_transciption():
+                print(line)
             snippet_translate.stop_thread.set()
-            # self.stopThreadHelper.set()
+            self.stopThreadHelper.set()
             self.createdThreads = False
             print("threading ended")
 
     def end_call(self):
         if self.createdThreads == True:
+            print("nice transc")
+            for line in snippet_translate.get_transciption():
+                print(line)
             snippet_translate.stop_thread.set()
             self.stopThreadHelper.set()
             self.createdThreads = False
