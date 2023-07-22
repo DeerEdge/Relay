@@ -1,7 +1,3 @@
-WindowManager:
-    MainWindow:
-    CallingWindow:
-
 <MainWindow>:
     name: "main"
     MDBoxLayout:
@@ -113,18 +109,3 @@ WindowManager:
                     line_color: "red"
                     pos_hint: {"center_x": .5, "center_y": .2}
                     size_hint: 0.15, 0.10
-
-
-
-<CallingWindow>:
-    name: "call"
-    MDBoxLayout:
-        orientation: "vertical"
-        MDLabel:
-        MDRoundFlatButton:
-            text: "End Call"
-            pos_hint: {"center_x": .5, "center_y": 1}
-            on_press:
-                app.end_call()
-                root.manager.transition.direction = "down"
-        MDLabel:
