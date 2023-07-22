@@ -28,18 +28,9 @@ username = my_username.encode('utf-8')
 username_header = f"{len(username):<{HEADER_LENGTH}}".encode('utf-8')
 client_socket.send(username_header + username)
 
-while True:
 
-    # Wait for user to input a message
-    message = input(f'{my_username} > ')
-
-    # If message is not empty - send it
-    if message:
-
-        # Encode message to bytes, prepare header and convert to bytes, like for username above, then send
-        message = message.encode('utf-8')
-        message_header = f"{len(message):<{HEADER_LENGTH}}".encode('utf-8')
-        client_socket.send(message_header + message)
+def receive_data():
+    global username, message
 
     try:
         # Now we want to loop over received messages (there might be more than one) and print them
@@ -66,7 +57,6 @@ while True:
 
             # Print message
             print(f'{username} > {message}')
-
     except IOError as e:
         # This is normal on non blocking connections - when there are no incoming data error is going to be raised
         # Some operating systems will indicate that using AGAIN, and some using WOULDBLOCK error code
@@ -77,9 +67,25 @@ while True:
             sys.exit()
 
         # We just did not receive anything
-        continue
+        # continue
 
     except Exception as e:
         # Any other exception - something happened, exit
         print('Reading error: '.format(str(e)))
         sys.exit()
+
+
+while True:
+
+    # Wait for user to input a message
+    message = input(f'{my_username} > ')
+
+    # If message is not empty - send it
+    if message:
+
+        # Encode message to bytes, prepare header and convert to bytes, like for username above, then send
+        message = message.encode('utf-8')
+        message_header = f"{len(message):<{HEADER_LENGTH}}".encode('utf-8')
+        client_socket.send(message_header + message)
+
+    receive_data()
