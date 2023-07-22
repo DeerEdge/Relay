@@ -15,7 +15,7 @@ from tempfile import NamedTemporaryFile
 from time import sleep
 from sys import platform
 
-import call_client
+import send_data_client
 
 global stop_thread
 global transcription
@@ -105,7 +105,7 @@ def main():
 
     while True:
         if stop_thread.is_set():
-            call_client.run()
+            send_data_client.run()
             break
         try:
             now = datetime.utcnow()

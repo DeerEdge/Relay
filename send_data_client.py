@@ -35,7 +35,6 @@ def run():
     username_header = f"{len(username):<{HEADER_LENGTH}}".encode('utf-8')
     client_socket.send(username_header + username)
 
-
     # while True:
     message = snippet_translate.get_recent_string()
     print("Message" + message)
