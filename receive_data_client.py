@@ -6,7 +6,11 @@ import errno
 import time
 
 
+global received_message
+received_message = ""
+
 def run():
+    print("trying")
     HEADER_LENGTH = 10
 
     # IP Address of the server
@@ -19,13 +23,10 @@ def run():
     # socket.AF_INET - address family, IPv4, some otehr possible are AF_INET6, AF_BLUETOOTH, AF_UNIX
     # socket.SOCK_STREAM - TCP, conection-based, socket.SOCK_DGRAM - UDP, connectionless, datagrams, socket.SOCK_RAW - raw IP packets
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
     # Connect to a given ip and port
     client_socket.connect((IP, PORT))
-
     # Set connection to non-blocking state, so .recv() call won;t block, just return some exception we'll handle
     client_socket.setblocking(False)
-
     # Prepare username and header and send them
     # We need to encode username to bytes, then count number of bytes and prepare header of fixed size, that we encode to bytes as well
     username = my_username.encode('utf-8')
@@ -56,6 +57,8 @@ def run():
             message_header = client_socket.recv(HEADER_LENGTH)
             message_length = int(message_header.decode('utf-8').strip())
             message = client_socket.recv(message_length).decode('utf-8')
+            global received_message
+            received_message = message
 
             # Print message
             print(f'{username} > {message}')

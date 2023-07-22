@@ -58,16 +58,35 @@ class MainApp(MDApp):
 
         for screen in screens:
             self.wm.add_widget(screen)
-
         return self.wm
 
     def login(self):
         self.wm.current = 'main'
-        self.thread3 = threading.Thread(target=self.start_client)
-        self.thread3.start()
 
     def start_call(self):
         self.wm.current = 'call'
+        self.thread3 = threading.Thread(target=self.start_client)
+        self.thread3.start()
+        self.thread4 = threading.Thread(target=self.check_for_message)
+        self.thread4.start()
+
+    def check_for_message(self):
+        while True:
+            msg = str(receive_data_client.received_message)
+            if msg != "":
+                self.add_text_to_scrollview(msg)
+                receive_data_client.received_message = ""
+            time.sleep(1)
+
+    def add_text_to_scrollview(self, msg):
+        scroll_view = self.wm.screens[2].ids.scroll_view
+        text_label = self.wm.screens[2].ids.text_label
+
+        new_text = "\n" + "<Thomas> " + msg
+        # You can change this to your desired text.
+        updated_text = text_label.text + new_text
+        text_label.text = updated_text
+        scroll_view.scroll_y = 0   # Scroll to the top after adding text
 
     def start_client(self):
         receive_data_client.run()

@@ -2,23 +2,45 @@
     name: "call"
     MDBoxLayout:
         orientation: "vertical"
-        MDLabel:
-        MDRoundFlatButton:
-            text: "Record"
-            pos_hint: {"center_x": .5, "center_y": 1}
-            on_press:
-                app.begin_record()
-        MDLabel:
-        MDRoundFlatButton:
-            text: "Stop Recording"
-            pos_hint: {"center_x": .5, "center_y": 1}
-            on_press:
-                app.end_call()
-        MDLabel:
+        size_hint: (1, 1)
+        MDTopAppBar:
+            title: "In Call..."
+        MDScrollView:
+            pos_hint: {"center_x": .5, "center_y": 0}
+            scroll_distance: 100
+            bar_color: [0, 0, 255, 1]
+            bar_width: 12
+            id: scroll_view
+            do_scroll_x: False
+            do_scroll_y: True
+
+            MDLabel:
+                id: text_label
+                text: "Call connected...chat history initiated"
+                theme_text_color: "Secondary"
+                size_hint_y: None
+                height: self.texture_size[1]
+                markup: True
+                padding: dp(30), dp(30)
+
+        MDBoxLayout:
+            orientation: "horizontal"
+            MDLabel:
+            MDRoundFlatButton:
+                text: "Record"
+                pos_hint: {"center_x": .5, "center_y": 1}
+                on_press:
+                    app.begin_record()
+            MDLabel:
+            MDRoundFlatButton:
+                text: "Stop Recording"
+                pos_hint: {"center_x": .5, "center_y": 1}
+                on_press:
+                    app.end_call()
+            MDLabel:
         MDRoundFlatButton:
             text: "End Call"
             pos_hint: {"center_x": .5, "center_y": 1}
             on_press:
                 app.end_call()
                 root.manager.transition.direction = "down"
-        MDLabel:
