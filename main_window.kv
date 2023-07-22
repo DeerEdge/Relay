@@ -105,36 +105,71 @@
                         title: "Info"
                     MDLabel:
                     MDLabel:
+                    MDLabel:
+                    MDLabel:
+                    MDLabel:
+                        text: "Team Hash Browns"
+                        halign: "center"
+                    MDLabel:
                     FitImage:
-                        size: (dp(110)), (dp(110))
-                        radius: [dp(110), ]
+                        size: (dp(120)), (dp(120))
+                        radius: [dp(120), ]
                         size_hint: (None, None)
                         source: 'cat_avatar.jpg'
                         pos_hint: {'center_x': .5, 'center_y': .5}
                     MDLabel:
-                    MDRectangleFlatButton:
-                        text: "Profile"
-                        theme_text_color: "Custom"
-                        text_color: "red"
-                        line_color: "red"
-                        pos_hint: {"center_x": .5, "center_y": 1}
-
-
+                    MDLabel:
+                        text: "Joined July 20th, 2023"
+                        pos_hint: {'center_x': .5, 'center_y': 1}
+                        halign: "center"
+                    MDLabel:
+                    MDLabel:
+                    MDLabel:
+                        text: "Preferred languages of communication: English, Spanish, Telugu"
+                        halign: "center"
+                        padding: (dp(20), )
+                    MDLabel:
+                    MDLabel:
+                    MDLabel:
+                        text: "Resources"
+                        bold: True
+                        halign: "center"
                     MDLabel:
                     MDRectangleFlatButton:
-                        text: "Language"
+                        text: "Telecommunication Relay Services"
+                        padding: (dp(50),dp(10))
                         theme_text_color: "Custom"
-                        text_color: "red"
-                        line_color: "red"
-                        pos_hint: {"center_x": .5, "center_y": 1}
-
+                        halign: "center"
+                        text_color: "blue"
+                        pos_hint: {'center_x': .5, 'center_y': 1}
+                        on_press:
+                            app.contact_official_link()
                     MDLabel:
                     MDRectangleFlatButton:
-                        text: "About"
+                        text: "ADA Requirements"
+                        padding: (dp(50),dp(10))
                         theme_text_color: "Custom"
-                        text_color: "red"
-                        line_color: "red"
-                        pos_hint: {"center_x": .5, "center_y": 1}
-
+                        halign: "center"
+                        text_color: "blue"
+                        pos_hint: {'center_x': .5, 'center_y': 1}
+                        on_press:
+                            app.read_ADA_link()
                     MDLabel:
+                    MDRectangleFlatButton:
+                        text: "Request Help"
+                        padding: (dp(50),dp(10))
+                        theme_text_color: "Custom"
+                        halign: "center"
+                        text_color: "blue"
+                        pos_hint: {'center_x': .5, 'center_y': 1}
+                        on_press:
+                            app.read_ADA_link()
+                    MDLabel:
+                    MDRectangleFlatButton:
+                        text: "Report a Bug"
+                        padding: (dp(50),dp(10))
+                        theme_text_color: "Custom"
+                        halign: "center"
+                        text_color: "blue"
+                        pos_hint: {'center_x': .5, 'center_y': 1}
                     MDLabel:

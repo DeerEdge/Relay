@@ -2,6 +2,7 @@ import asyncio
 import socket
 import threading
 import time
+import webbrowser
 from random import random
 from multiprocessing import Process
 
@@ -128,6 +129,12 @@ class MainApp(MDApp):
             self.stopThreadHelper.set()
             self.createdThreads = False
             print("threading ended")
+
+    def contact_official_link(self):
+        webbrowser.open('https://www.fcc.gov/trs')
+
+    def read_ADA_link(self):
+        webbrowser.open('https://www.ada.gov/resources/effective-communication/')
 
     def end_call(self):
         if self.createdThreads == True:
