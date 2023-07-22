@@ -9,7 +9,8 @@ HEADER_LENGTH = 10
 # IP Address of the server
 IP = "192.168.1.42"
 PORT = 1234
-my_username = input("Username: ")
+my_username = "Thomas"
+# my_username = input("Username: ")
 
 # Create a socket
 # socket.AF_INET - address family, IPv4, some otehr possible are AF_INET6, AF_BLUETOOTH, AF_UNIX
@@ -75,17 +76,20 @@ def receive_data():
         sys.exit()
 
 
-while True:
-
+def send_data():
+    global message
     # Wait for user to input a message
     message = input(f'{my_username} > ')
-
     # If message is not empty - send it
     if message:
-
         # Encode message to bytes, prepare header and convert to bytes, like for username above, then send
         message = message.encode('utf-8')
         message_header = f"{len(message):<{HEADER_LENGTH}}".encode('utf-8')
         client_socket.send(message_header + message)
+
+
+while True:
+
+    send_data()
 
     receive_data()
