@@ -1,8 +1,13 @@
+import threading
+import time
 from random import random
 from kivy.lang import Builder
 from kivymd.app import MDApp
 from kivy.core.window import Window
 from kivy.uix.screenmanager import ScreenManager, Screen
+
+import snippet_translate
+
 Window.size = (360, 640)
 
 Builder.load_file('login_window.kv')
@@ -50,6 +55,21 @@ class MainApp(MDApp):
         self.wm.current = 'main'
     def start_call(self):
         self.wm.current = 'call'
+
+        def infiniteloop1():
+            while True:
+                print('Loop 1')
+                time.sleep(1)
+
+        def infiniteloop2():
+            print("translate started")
+            snippet_translate.main()
+
+        thread1 = threading.Thread(target=infiniteloop1)
+        thread1.start()
+
+        thread2 = threading.Thread(target=infiniteloop2)
+        thread2.start()
     def end_call(self):
         self.wm.current = 'main'
 MainApp().run()

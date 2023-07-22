@@ -1,3 +1,4 @@
+
 import argparse
 import io
 import os
@@ -89,6 +90,8 @@ def main():
 
     # Cue the user that we're ready to go.
     print("Model loaded.\n")
+
+    start_recording = "false"
 
     while True:
         try:

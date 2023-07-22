@@ -4,6 +4,18 @@
         orientation: "vertical"
         MDLabel:
         MDRoundFlatButton:
+            text: "Record"
+            pos_hint: {"center_x": .5, "center_y": 1}
+            on_press:
+                app.end_call()
+        MDLabel:
+        MDRoundFlatButton:
+            text: "Stop Recording"
+            pos_hint: {"center_x": .5, "center_y": 1}
+            on_press:
+                app.end_call()
+        MDLabel:
+        MDRoundFlatButton:
             text: "End Call"
             pos_hint: {"center_x": .5, "center_y": 1}
             on_press:
