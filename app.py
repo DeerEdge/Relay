@@ -1,11 +1,11 @@
 import threading
 import time
 from random import random
+from multiprocessing import Process
 from kivy.lang import Builder
 from kivymd.app import MDApp
 from kivy.core.window import Window
 from kivy.uix.screenmanager import ScreenManager, Screen
-
 import snippet_translate
 
 Window.size = (360, 640)
@@ -14,8 +14,10 @@ Builder.load_file('login_window.kv')
 Builder.load_file('calling_window.kv')
 Builder.load_file('main_window.kv')
 
-class LoginWindow(Screen):
-    pass
+global kill_exec
+kill_exec = False
+
+class LoginWindow(Screen): pass
 
 class MainWindow(Screen):
     def update_num_field(self, instance):
@@ -26,13 +28,14 @@ class MainWindow(Screen):
         for id, widget in instance.parent.ids.items():
             if widget.__self__ == instance:
                 return id
-class CallingWindow(Screen):
-    pass
-class WindowManager(ScreenManager):
-    pass
-class MainApp(MDApp):
 
+class CallingWindow(Screen): pass
+
+class WindowManager(ScreenManager): pass
+
+class MainApp(MDApp):
     def build(self):
+        self.createdThreads = False
         self.theme_cls.primary_palette = 'Blue'
         self.theme_cls.primary_hue = "500"
 
@@ -53,23 +56,43 @@ class MainApp(MDApp):
 
     def login(self):
         self.wm.current = 'main'
+
     def start_call(self):
         self.wm.current = 'call'
 
-        def infiniteloop1():
-            while True:
-                print('Loop 1')
-                time.sleep(1)
+    def activiate_whisper_translation(self):
+        print("translate started")
+        snippet_translate.main()
 
-        def infiniteloop2():
-            print("translate started")
-            snippet_translate.main()
+    def infiniteloop1(self):
+        self.stopThreadHelper = threading.Event()
+        while True:
+            if self.stopThreadHelper.is_set():
+                break
+            print('------------------------------')
+            time.sleep(5)
 
-        thread1 = threading.Thread(target=infiniteloop1)
-        thread1.start()
+    def begin_record(self):
+        self.createdThreads = True
+        self.thread1 = threading.Thread(target=self.activiate_whisper_translation)
+        self.thread2 = threading.Thread(target=self.infiniteloop1)
+        self.thread1.start()
+        self.thread2.start()
 
-        thread2 = threading.Thread(target=infiniteloop2)
-        thread2.start()
+    def end_record(self):
+        if self.createdThreads == True:
+            snippet_translate.stop_thread.set()
+            self.stopThreadHelper.set()
+            self.createdThreads = False
+            print("threading ended")
+
     def end_call(self):
+        if self.createdThreads == True:
+            snippet_translate.stop_thread.set()
+            self.stopThreadHelper.set()
+            self.createdThreads = False
+            print("threading ended")
+
         self.wm.current = 'main'
+
 MainApp().run()

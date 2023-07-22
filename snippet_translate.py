@@ -2,6 +2,8 @@
 import argparse
 import io
 import os
+import threading
+
 import speech_recognition as sr
 import whisper
 from whisper import *
@@ -12,6 +14,9 @@ from queue import Queue
 from tempfile import NamedTemporaryFile
 from time import sleep
 from sys import platform
+
+global stop_thread
+stop_thread = threading.Event()
 
 def main():
     parser = argparse.ArgumentParser()
@@ -94,6 +99,8 @@ def main():
     start_recording = "false"
 
     while True:
+        if stop_thread.is_set():
+            break
         try:
             now = datetime.utcnow()
             # Pull raw recorded audio from the queue.
@@ -146,7 +153,6 @@ def main():
     print("\n\nTranscription:")
     for line in transcription:
         print(line)
-
 
 if __name__ == "__main__":
     main()
